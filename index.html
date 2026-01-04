@@ -4,9 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
   body{
     margin:0;
@@ -43,6 +45,7 @@
   }
 </style>
 </head>
+
 <body>
   <div class="wrap">
     <div class="gm" id="gm"></div>
@@ -400,7 +403,9 @@ function pick(arr, key, salt){
 
 const d = new Date();
 const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+
 document.getElementById("gm").textContent = pick(GREETINGS, key, "greet");
+
 const selectedFact = pick(FUN_FACTS, key, "fact");
 const factLowerFirst = selectedFact.charAt(0).toLowerCase() + selectedFact.slice(1);
 document.getElementById("fact").textContent = "💭 Did you know that " + factLowerFirst;
