@@ -27,27 +27,31 @@
   }
   .gm{
     font-family: "Life Savers", Georgia, "Times New Roman", serif;
-    font-size: clamp(40px, 6.5vw, 96px);
+    font-size: clamp(40px, 6.3vw, 90px);
     font-weight: 700;
-    margin: 0 0 12px 0;
-    line-height: 1.15;
+    margin: 0 0 10px 0;
+    line-height: 1.18;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
   .line{
     font-family: "Teachers", Arial, Helvetica, sans-serif;
-    font-size: clamp(22px, 3.2vw, 40px);
-    line-height: 1.45;
-    margin: 10px 0;
+    font-size: clamp(16px, 3.4vw, 30px);
+    line-height: 1.35;
+    margin: 8px 0;
     font-weight: 500;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 </style>
 </head>
 
 <body>
-<div class="wrap">
-  <div class="gm" id="gm"></div>
-  <div class="line" id="fact"></div>
-  <div class="line" id="note"></div>
-</div>
+  <div class="wrap">
+    <div class="gm" id="gm"></div>
+    <div class="line" id="fact"></div>
+    <div class="line" id="note"></div>
+  </div>
 
 <script>
 const GREETINGS = [
@@ -73,7 +77,7 @@ const GREETINGS = [
   "Morning everyone ☆ lets focus",
   "Good morning ☆ here we go",
   "Morning ☆ take a seat",
-  "Good morning ☆ today is a learning day",
+  "Good morning ☆ today is a great day",
   "Morning friends ☆ take a deep breath",
   "Good morning ☆ lets roll"
 ];
@@ -116,21 +120,275 @@ const FUN_FACTS = [
   "The Moon causes ocean tides (it pulls water toward it).",
   "Sound can make sand form shapes (called cymatics).",
   "Some birds can fly for days without landing (like swifts).",
+  "The Sun will one day disappear (after billions of years).",
+  "The Earth has had more than one ocean (ancient oceans came and went).",
+  "Your bones are stronger than steel by weight (ounce for ounce).",
+  "Frogs can breathe through their skin (especially underwater).",
+  "There are rivers flowing under the ocean (made of saltier, heavier water).",
+  "A star can explode and still be seen years later (because light takes time to travel).",
+  "Some plants eat animals (like Venus flytraps).",
+  "You have more nerve connections than stars in the Milky Way (your brain is incredibly complex).",
+  "A day on Mercury lasts longer than a year on Mercury (because it spins very slowly).",
+  "The Earth has a magnetic shield (it protects us from solar radiation).",
+  "Some animals can see ultraviolet light (like bees seeing flower patterns).",
+  "Ice can burn skin (called frostbite).",
+  "A human hair is stronger than copper wire (for its size).",
+  "The Moon has moonquakes (caused by gravity and cooling).",
+  "Some fish can live without oxygen for short times (like goldfish).",
+  "You can hear silence in space (through vibrations in suits).",
+  "The Sun makes sound waves humans cannot hear (too low in pitch).",
+  "A single drop of honey is made by thousands of flowers (bees work hard).",
+  "The Earth’s core is hotter than the Sun’s surface (over 5,000°C).",
+  "Some animals can clone themselves (like starfish).",
+  "A whale’s song can travel across oceans (hundreds of kilometers).",
+  "Snow can fall upward in strong wind (during blizzards).",
+  "The human body replaces itself over time (new skin, blood, and cells).",
+  "Your stomach makes acid strong enough to dissolve metal (but your stomach lining protects you).",
+  "A comet is a dirty snowball (made of ice, dust, and rock).",
+  "Some animals glow naturally (like fireflies).",
+  "A shadow can move faster than light (because it isn’t a physical object).",
+  "There are mountains taller than Everest on other planets (Olympus Mons on Mars).",
+  "The brain keeps working while you sleep (sorting memories).",
+  "A magnet works without touching (through invisible forces).",
+  "You have a unique smell (even identical twins).",
+  "The Earth is not a perfect circle (it bulges at the middle).",
+  "Some animals can hear earthquakes before humans (like elephants).",
+  "A butterfly’s wings are transparent (colors come from tiny scales).",
+  "The Sun loses weight every second (energy turning into light).",
+  "Some clouds are lower than mountains (you can walk through them).",
+  "Humans can dream in color or black and white (often based on memory).",
+  "The ocean makes most of Earth’s oxygen (tiny plants called phytoplankton).",
+  "A starfish has no brain (it uses nerve nets).",
+  "Time moves slower in space (because of gravity and speed).",
+  "The Moon has footprints that may last millions of years (no wind or rain).",
+  "A single tree can lift sidewalks (as roots grow).",
+  "Sound can bend around corners (called diffraction).",
+  "Some animals can survive being frozen solid (like wood frogs).",
+  "The Earth once had rings like Saturn (made from space debris).",
+  "A human can feel pain in places that are gone (phantom limb pain).",
+  "A cat’s whiskers help it measure space (to see if it fits).",
+  "Some animals sleep with half their brain awake (like dolphins).",
+  "The Sun will become a giant one day (a red giant).",
+  "A mirror is never perfectly flat (even tiny bumps matter).",
+  "The Earth has layers like an onion (crust, mantle, core).",
+  "A drop of water can contain millions of tiny organisms (in ponds or oceans).",
+  "Fire needs air to exist (without oxygen it goes out).",
+  "You share atoms with ancient stars (made in explosions long ago).",
+  "A rainbow is actually a full circle (you usually see only half from the ground).",
+  "Some animals can hear sounds humans cannot (like dogs hearing high-pitched whistles).",
+  "The Moon has no dark side—only a far side (the Sun still shines on it).",
+  "The Earth moves through space very fast (faster than a race car).",
+  "A baby has more bones than an adult (some bones fuse together as you grow).",
+  "The Sun is middle-aged (it has billions of years left).",
+  "Some plants move without muscles (like sunflowers turning toward the Sun).",
+  "You are always slightly radioactive (from natural elements in your body).",
+  "The ocean has its own weather (with underwater storms and currents).",
+  "A human brain can store more information than a computer (it can remember faces, sounds, and feelings).",
+  "A volcano can change the weather (ash can block sunlight).",
+  "Some animals can survive without heads briefly (like insects).",
+  "A sneeze can spray thousands of tiny droplets (that’s why we cover our mouths).",
+  "The Earth once had giant insects (because the air had more oxygen).",
+  "The Moon smells like burnt fireworks (astronauts noticed it on their suits).",
+  "A whisper can travel farther at night (cool air bends sound).",
+  "The Sun will still shine when humans are gone (stars live much longer than people).",
+  "Your heartbeat changes with your emotions (faster when excited, slower when calm).",
+  "Some animals can sense magnetic north (like birds using it to travel).",
+  "The Earth has been hit by asteroids many times (some made huge craters).",
+  "Your eyes see images upside down (your brain flips them right-side up).",
+  "The brain can trick itself (like seeing shapes in clouds).",
+  "Some animals can live in very hot water (near underwater volcanoes).",
+  "A spider’s silk is stronger than steel (for its thickness).",
+  "The Earth’s continents are moving (very slowly each year).",
+  "A cloud can rain for hours (if it keeps growing).",
+  "The Sun creates solar storms (that can cause northern lights).",
+  "You shed millions of skin cells every day (most end up as dust).",
+  "Some animals can stop their own hearts (for short times, like diving seals).",
+  "The Moon helps slow Earth’s spin (days slowly get longer).",
+  "Light from stars is very old (it travels for years to reach us).",
+  "Some animals can change gender (like certain fish).",
+  "Your body reacts before you think (pulling your hand away from heat).",
+  "A star can be born from dust (gravity pulls it together).",
+  "The Earth hums quietly all the time (from ocean waves and movement).",
+  "Some animals never sleep (they rest in other ways).",
+  "Fire can change color (based on what is burning).",
+  "The Sun is traveling through space (along with our solar system).",
+  "Your brain predicts the future constantly (guessing what happens next).",
+  "Some animals can survive in space briefly (like tiny water bears).",
+  "The Earth once had purple oceans (from early life forms).",
+  "Tears come in different types (happy, sad, and eye-cleaning tears).",
+  "The Sun will outlive humans (by billions of years).",
+  "Some animals see time differently (fast-moving animals see more detail).",
+  "The Earth has hidden caves underground (formed by water and lava).",
+  "Your body repairs itself every day (healing cuts and replacing cells).",
+  "A star can collapse into itself (becoming very dense).",
+  "The Moon helps keep Earth steady (so the climate stays stable).",
+  "Some animals can hear your heartbeat (like dogs when close).",
+  "You are made of recycled atoms (from stars, plants, and animals long ago).",
+  "A volcano can make new land (when lava cools).",
+  "The Earth has been frozen many times (during ice ages).",
+  "A thought travels faster than sound (it happens inside your brain).",
+  "Some animals can sense fear (by smell or body signals).",
+  "The Sun will become a red giant (growing much bigger).",
+  "The Earth has invisible shields (like the magnetic field).",
+  "Your body reacts to emotions before words (your face changes first).",
+  "Some animals can live hundreds of years (like certain turtles).",
   "The universe is still growing (space keeps stretching outward)."
 ];
 
 const MOTIVATION = [
   { msg: "Your brain grows when you try something new, even when it feels hard.", explainLabel: "Why", explain: "Trying makes new learning paths in your brain." },
   { msg: "Noticing how your body feels can help you learn better.", explainLabel: "How", explain: "Check your body and ask, “Do I feel calm, wiggly, tired, or ready?”" },
-  { msg: "You can feel proud of effort.", explainLabel: "Why", explain: "Effort gives your brain good feelings." },
+  { msg: "When your body feels calm, your brain can think more clearly.", explainLabel: "Why", explain: "Calm helps your thinking brain work well." },
+  { msg: "Trying your best helps your brain grow strong.", explainLabel: "Why", explain: "Effort gives your brain good practice." },
   { msg: "Slow breathing can help your body feel calm.", explainLabel: "How", explain: "Breathe in through your nose and slowly blow out your mouth." },
   { msg: "Making mistakes helps your brain learn.", explainLabel: "Why", explain: "Mistakes show your brain what to try next." },
-  { msg: "Trying matters more than being perfect.", explainLabel: "Why", explain: "Trying is how learning happens." },
+  { msg: "A steady body helps you focus.", explainLabel: "How", explain: "Put your feet on the floor, hands still, and eyes on learning." },
+  { msg: "Feelings help you understand yourself.", explainLabel: "Why", explain: "Feelings are messages from your brain." },
+  { msg: "Pausing can help you make good choices.", explainLabel: "How", explain: "Stop your body, take one breath, then think." },
+  { msg: "You belong here, and your learning matters.", explainLabel: "Why", explain: "Feeling safe and included helps brains learn." },
+  { msg: "Moving your body can help wake up your brain.", explainLabel: "How", explain: "Stretch, walk, or do gentle movement." },
+  { msg: "Kind words help others feel safe.", explainLabel: "Why", explain: "Safe brains can focus and learn." },
+  { msg: "Learning takes time, and that is okay.", explainLabel: "Why", explain: "Brains grow slowly with practice." },
+  { msg: "Your thinking brain helps you make choices.", explainLabel: "Why", explain: "This part of your brain helps plan and decide." },
+  { msg: "Helping others can help you learn too.", explainLabel: "Why", explain: "Teaching helps your brain remember." },
+  { msg: "Calm bodies help memory.", explainLabel: "Why", explain: "Calm helps the brain hold ideas longer." },
+  { msg: "Big feelings are okay and they will pass.", explainLabel: "Why", explain: "Feelings get smaller when bodies calm down." },
+  { msg: "Stretching can help your brain get ready to learn.", explainLabel: "How", explain: "Reach up, stretch your legs, and breathe." },
+  { msg: "Practice helps learning stick.", explainLabel: "Why", explain: "Repeating makes memory stronger." },
+  { msg: "Everyone learns in different ways.", explainLabel: "Why", explain: "Every brain works a little differently." },
+  { msg: "You can notice frustration in your body.", explainLabel: "How", explain: "Notice tight hands, a hot face, or a fast heart." },
+  { msg: "Slowing down helps your brain think.", explainLabel: "Why", explain: "Going slower gives your brain time to choose." },
+  { msg: "Quiet moments help your brain organize ideas.", explainLabel: "Why", explain: "Quiet gives your brain space to think." },
+  { msg: "Using words helps solve problems.", explainLabel: "Why", explain: "Words help your thinking brain lead." },
+  { msg: "Trying again helps your brain learn more.", explainLabel: "Why", explain: "Trying again strengthens learning paths." },
+  { msg: "Your body and brain work as a team.", explainLabel: "Why", explain: "They send messages to each other all day." },
+  { msg: "You can change how you feel by changing your body.", explainLabel: "How", explain: "Try breathing, stretching, or slowing down." },
+  { msg: "Helping others feel included helps everyone.", explainLabel: "Why", explain: "Inclusion helps brains feel safe." },
+  { msg: "You can feel proud when you keep trying.", explainLabel: "Why", explain: "Effort gives your brain a good feeling." },
+  { msg: "Learning can be good even when it feels hard.", explainLabel: "Why", explain: "Hard work is exercise for your brain." },
+  { msg: "Your brain has a feeling part that notices big feelings.", explainLabel: "Why", explain: "This part tries to keep you safe." },
+  { msg: "Your brain has a thinking part that helps you decide what to do.", explainLabel: "Why", explain: "This part helps with learning and choices." },
+  { msg: "Breathing slowly can calm the feeling part of your brain.", explainLabel: "How", explain: "Take a slow breath in and out." },
+  { msg: "Feeling safe helps learning happen.", explainLabel: "Why", explain: "Safe brains are ready to learn." },
+  { msg: "One calm breath can help you reset.", explainLabel: "How", explain: "Stop, breathe once, then begin again." },
+  { msg: "Paying attention helps learning.", explainLabel: "Why", explain: "Attention tells your brain what to remember." },
+  { msg: "Focus gets better with practice.", explainLabel: "Why", explain: "Practice strengthens attention." },
+  { msg: "Learning makes new brain connections.", explainLabel: "Why", explain: "Your brain connects ideas like bridges." },
+  { msg: "Calm choices help everyone learn.", explainLabel: "Why", explain: "Calm spreads in groups." },
+  { msg: "Listening shows respect.", explainLabel: "Why", explain: "Respect helps people feel safe." },
+  { msg: "You can check if your body feels busy or tired.", explainLabel: "How", explain: "Notice if your body feels jumpy, slow, or just right." },
+  { msg: "Movement can wake up a tired brain.", explainLabel: "How", explain: "Walk, stretch, or push something heavy." },
+  { msg: "Quiet can help a busy brain slow down.", explainLabel: "How", explain: "Lower your voice and stop moving for a moment." },
+  { msg: "Stopping and breathing can help you start again.", explainLabel: "How", explain: "Stop your body, breathe once, then restart." },
+  { msg: "You can make choices that help the whole group.", explainLabel: "Why", explain: "Group calm helps everyone learn." },
   { msg: "God made your brain to learn and grow.", explainLabel: "Why", explain: "God created you with care and purpose." },
+  { msg: "Helping others shows love.", explainLabel: "Why", explain: "Love brings people closer together." },
+  { msg: "You are important because God made you.", explainLabel: "Why", explain: "Every person has value." },
+  { msg: "Forgiving helps hearts feel lighter.", explainLabel: "Why", explain: "Letting go helps you feel calm inside." },
+  { msg: "Caring for our classroom shows care for creation.", explainLabel: "Why", explain: "Taking care of things helps everyone." },
+  { msg: "Gratitude helps you feel calm and happy.", explainLabel: "How", explain: "Think of one good thing you are thankful for." },
+  { msg: "Saying thank you builds friendships.", explainLabel: "Why", explain: "Thanking others helps people feel connected." },
+  { msg: "Joy can make learning exciting.", explainLabel: "Why", explain: "Happy feelings give your brain energy." },
+  { msg: "Learning is not always fun and that is okay.", explainLabel: "Why", explain: "Brains can grow during hard work." },
+  { msg: "Hard work helps brains grow strong.", explainLabel: "Why", explain: "Challenge builds new learning paths." },
+  { msg: "Being kind helps everyone feel welcome.", explainLabel: "Why", explain: "Welcome feelings help brains relax." },
+  { msg: "You do not need to compare yourself to others.", explainLabel: "Why", explain: "Comparing can make your brain feel stressed." },
+  { msg: "Your progress matters.", explainLabel: "Why", explain: "Every brain grows at its own speed." },
+  { msg: "Asking questions helps learning.", explainLabel: "Why", explain: "Questions help your brain understand." },
+  { msg: "Confusion means learning is happening.", explainLabel: "Why", explain: "Confusion comes before understanding." },
+  { msg: "Doing one thing at a time helps focus.", explainLabel: "Why", explain: "Too many things overload the brain." },
+  { msg: "Pausing before acting helps self-control.", explainLabel: "How", explain: "Count to three before you move or speak." },
+  { msg: "Calm thinking helps good decisions.", explainLabel: "Why", explain: "Calm brains choose better." },
+  { msg: "Organizing your space helps focus.", explainLabel: "Why", explain: "Fewer distractions help attention." },
+  { msg: "Drinking water helps your brain work well.", explainLabel: "Why", explain: "Brains need water to think clearly." },
+  { msg: "Rest helps your brain learn.", explainLabel: "Why", explain: "Rest helps store learning." },
+  { msg: "Healthy bodies help brains learn better.", explainLabel: "Why", explain: "Body health supports thinking." },
+  { msg: "You can start again anytime.", explainLabel: "Why", explain: "Brains are flexible." },
+  { msg: "Small steps help learning grow.", explainLabel: "Why", explain: "Little practice adds up." },
+  { msg: "You are learning every day.", explainLabel: "Why", explain: "Your brain changes with practice." },
+  { msg: "Following the group plan means using your body in a way that helps everyone learn.", explainLabel: "How", explain: "Keep your body calm and match what the class is doing." },
+  { msg: "When you check the group plan, you can see if your body matches what we are doing.", explainLabel: "How", explain: "Look, listen, and adjust your body." },
+  { msg: "The group plan helps us work together instead of everyone doing different things.", explainLabel: "Why", explain: "Working together keeps learning calm." },
+  { msg: "When we follow the group plan, our classroom feels peaceful.", explainLabel: "Why", explain: "Peaceful spaces help brains focus." },
+  { msg: "The group plan helps everyone know what to do.", explainLabel: "Why", explain: "Clear plans help brains feel safe." },
+  { msg: "Listening to others helps your brain grow.", explainLabel: "Why", explain: "New ideas build new connections." },
+  { msg: "Learning together helps everyone succeed.", explainLabel: "Why", explain: "Friends help each other learn." },
+  { msg: "Fairness helps people trust each other.", explainLabel: "Why", explain: "Trust helps people feel safe." },
+  { msg: "Thoughtful actions help solve problems.", explainLabel: "Why", explain: "Thinking first leads to better choices." },
+  { msg: "Small caring actions matter.", explainLabel: "Why", explain: "Small kindness can change feelings." },
+  { msg: "Trying matters more than being perfect.", explainLabel: "Why", explain: "Trying is how learning happens." },
+  { msg: "Confidence grows with practice.", explainLabel: "Why", explain: "Practice teaches your brain you can do it." },
+  { msg: "Thinking about what worked helps learning stick.", explainLabel: "How", explain: "Remember what helped and try it again." },
+  { msg: "God walks with you as you learn.", explainLabel: "Why", explain: "You are never alone." },
+  { msg: "Quiet prayer can help you feel calm.", explainLabel: "Why", explain: "Quiet helps your heart and mind settle." },
+  { msg: "Peace begins with calm choices.", explainLabel: "Why", explain: "Calm choices help everyone." },
+  { msg: "Serving others shows love.", explainLabel: "Why", explain: "Helping brings joy." },
+  { msg: "God loves you even when you make mistakes.", explainLabel: "Why", explain: "Love does not go away." },
+  { msg: "Effort shows learning.", explainLabel: "Why", explain: "Effort means your brain is practicing." },
+  { msg: "Trying matters more than answers.", explainLabel: "Why", explain: "Learning is about effort." },
+  { msg: "Every day is a fresh chance to learn.", explainLabel: "Why", explain: "New days bring new growth." },
+  { msg: "Learning can happen slowly.", explainLabel: "Why", explain: "Some ideas take time." },
+  { msg: "Not giving up helps learning grow.", explainLabel: "Why", explain: "Practice strengthens learning." },
+  { msg: "Staying calm helps others feel safe.", explainLabel: "Why", explain: "Calm spreads to others." },
+  { msg: "Sharing ideas builds community.", explainLabel: "Why", explain: "Sharing helps people feel included." },
+  { msg: "Learning is not a race.", explainLabel: "Why", explain: "Brains grow at different speeds." },
+  { msg: "Peaceful actions help learning.", explainLabel: "Why", explain: "Peace lowers stress." },
+  { msg: "Learning happens when ideas connect.", explainLabel: "Why", explain: "Connected ideas are easier to remember." },
+  { msg: "Effort is worth celebrating.", explainLabel: "Why", explain: "Celebration builds motivation." },
+  { msg: "You are growing in mind, heart, and spirit.", explainLabel: "Why", explain: "Learning helps you grow in many ways." },
+  { msg: "Learning helps you become who you are meant to be.", explainLabel: "Why", explain: "Learning helps you use your gifts." },
+  { msg: "Thinking about what you learned helps memory.", explainLabel: "How", explain: "Think back and name one thing you learned." },
+  { msg: "Noticing good things helps calm your brain.", explainLabel: "How", explain: "Name one good thing right now." },
+  { msg: "Being kind to yourself helps learning.", explainLabel: "Why", explain: "Self-kindness lowers stress." },
+  { msg: "Helping others succeed helps everyone.", explainLabel: "Why", explain: "Teams learn better together." },
+  { msg: "You can keep learning on hard days.", explainLabel: "Why", explain: "Hard days still build practice." },
+  { msg: "Slowing down helps clear thinking.", explainLabel: "Why", explain: "Slower thinking makes fewer mistakes." },
+  { msg: "Choosing calm helps focus.", explainLabel: "How", explain: "Relax your shoulders and breathe." },
+  { msg: "Your brain keeps growing as you learn.", explainLabel: "Why", explain: "Learning changes the brain." },
+  { msg: "You can learn something new every day.", explainLabel: "Why", explain: "Brains are always ready to grow." },
+  { msg: "You can notice when learning feels easier.", explainLabel: "Why", explain: "Easier feelings show progress." },
+  { msg: "Movement can help you focus better.", explainLabel: "How", explain: "Move your body before sitting." },
+  { msg: "Quiet helps you listen better.", explainLabel: "Why", explain: "Less noise helps attention." },
+  { msg: "Helping clean up helps everyone learn.", explainLabel: "Why", explain: "Clean spaces reduce distractions." },
+  { msg: "Your choices matter.", explainLabel: "Why", explain: "Choices change how learning feels." },
+  { msg: "You can be brave and try.", explainLabel: "Why", explain: "Trying builds confidence." },
+  { msg: "Mistakes do not stop learning.", explainLabel: "Why", explain: "Learning continues after mistakes." },
+  { msg: "Patience helps learning feel easier.", explainLabel: "Why", explain: "Pressure makes learning harder." },
+  { msg: "Calm breathing helps focus return.", explainLabel: "How", explain: "Breathe in and out slowly once." },
+  { msg: "You can always ask for help.", explainLabel: "Why", explain: "Help gives new ideas." },
+  { msg: "Listening helps you understand directions.", explainLabel: "Why", explain: "Listening helps your brain know what to do." },
+  { msg: "You can notice when your body needs a break.", explainLabel: "How", explain: "Notice tired, sore, or wiggly feelings." },
+  { msg: "Moving slowly helps control your body.", explainLabel: "How", explain: "Walk slowly and keep movements gentle." },
+  { msg: "You can feel proud of effort.", explainLabel: "Why", explain: "Effort gives your brain good feelings." },
+  { msg: "Learning is something to feel good about.", explainLabel: "Why", explain: "Learning helps you grow." },
+  { msg: "You can try again tomorrow.", explainLabel: "Why", explain: "New tries help learning." },
+  { msg: "Calm voices help calm brains.", explainLabel: "How", explain: "Use a soft voice and slow words." },
+  { msg: "Working together makes learning easier.", explainLabel: "Why", explain: "Teams share ideas." },
+  { msg: "Being respectful helps learning feel safe.", explainLabel: "Why", explain: "Safety helps focus." },
+  { msg: "You can notice when your brain feels tired.", explainLabel: "Why", explain: "Tired brains need rest." },
+  { msg: "Stretching can help your body reset.", explainLabel: "How", explain: "Stretch arms and legs slowly." },
+  { msg: "You can learn even when unsure.", explainLabel: "Why", explain: "Uncertainty is part of learning." },
+  { msg: "Thinking first helps good choices.", explainLabel: "How", explain: "Pause and think before acting." },
+  { msg: "You can notice progress over time.", explainLabel: "Why", explain: "Practice makes learning easier." },
+  { msg: "Your learning is important.", explainLabel: "Why", explain: "Learning helps you grow." },
+  { msg: "You can choose to be kind.", explainLabel: "Why", explain: "Kindness helps everyone feel safe." },
+  { msg: "Listening helps your brain grow.", explainLabel: "Why", explain: "Listening brings in new ideas." },
+  { msg: "Learning happens step by step.", explainLabel: "Why", explain: "Big learning is built from small steps." },
+  { msg: "Calm helps memory work better.", explainLabel: "Why", explain: "Calm helps the brain store ideas." },
+  { msg: "You are capable of learning.", explainLabel: "Why", explain: "Your brain is made to learn." },
+  { msg: "Trying shows courage.", explainLabel: "Why", explain: "Courage helps learning happen." },
+  { msg: "You can feel proud after hard work.", explainLabel: "Why", explain: "Hard work brings happy brain feelings." },
+  { msg: "Noticing your breath helps calm your body.", explainLabel: "How", explain: "Feel your breath go in and out." },
+  { msg: "Learning helps you help others.", explainLabel: "Why", explain: "What you learn can be shared." },
+  { msg: "You can grow even when it feels slow.", explainLabel: "Why", explain: "Slow growth is still growth." },
+  { msg: "Your brain listens to your body.", explainLabel: "Why", explain: "Body signals guide focus." },
+  { msg: "Peaceful classrooms help learning.", explainLabel: "Why", explain: "Calm spaces help attention." },
   { msg: "You can always keep learning.", explainLabel: "Why", explain: "Brains never stop changing." },
+  { msg: "Every effort counts.", explainLabel: "Why", explain: "Every try helps your brain." },
   { msg: "Today is a good day to learn and grow.", explainLabel: "Why", explain: "Positive thoughts help learning start strong." }
 ];
 
+// deterministic daily selection (same all day; same across devices)
 function hashString(str){
   let h = 2166136261;
   for (let i=0;i<str.length;i++){
@@ -152,10 +410,8 @@ const selectedFact = pick(FUN_FACTS, key, "fact");
 const factLowerFirst = selectedFact.charAt(0).toLowerCase() + selectedFact.slice(1);
 document.getElementById("fact").textContent = "💭 Did you know that " + factLowerFirst;
 
-const note = pick(MOTIVATION, key, "note");
-document.getElementById("note").innerHTML =
-  "♡ " + note.msg +
-  "<br><strong><em>" + note.explainLabel + ": " + note.explain + "</em></strong>";
+const selectedNote = pick(MOTIVATION, key, "note");
+document.getElementById("note").innerHTML = "♡ " + selectedNote.msg + "<br><strong>" + selectedNote.explainLabel + ": " + selectedNote.explain + "</strong>";
 </script>
 </body>
 </html>
