@@ -1,1 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  body{
+    margin:0;
+    background: transparent;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+  }
+
+  .wrap{
+    max-width: 980px;
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* NEW: greeting wrapper for exact positioning */
+  .gm-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start; /* left edge aligned */
+  }
+
+  /* NEW: small caption line above, anchored to the same left edge */
+  .gm-sub{
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    font-size: clamp(11px, 1.1vw, 16px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0 0 2px 0; /* tight spacing */
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* UPDATED: big greeting line (Life Savers, very large) */
+  .gm{
+    font-family: "Life Savers", Georgia, "Times New Roman", serif;
+    font-size: clamp(44px, 7vw, 90px);
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    line-height: 1.02;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .line{
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    font-size: clamp(14px, 1.7vw, 20px);
+    line-height: 1.35;
+    margin: 8px 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+</style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="gm-wrap">
+      <div class="gm-sub" id="gmSub"></div>
+      <div class="gm" id="gm"></div>
+    </div>
+    <div class="line" id="fact"></div>
+    <div class="line" id="note"></div>
+  </div>
+
+<script>
+const GREETINGS = [
+  { text: "Good morning, Grade 1!", lang: "English", pron: "good MOR-ning" },
+  { text: "Hello, Grade 1!", lang: "English", pron: "huh-LOH" },
+  { text: "Hi, friends!", lang: "English", pron: "hy" },
+  { text: "Good morning, helpers!", lang: "English", pron: "good MOR-ning" },
+  { text: "Good morning, superstars!", lang: "English", pron: "good MOR-ning" },
+  { text: "Good morning, bright minds!", lang: "English", pron: "good MOR-ning" },
+  { text: "Good morning, kind humans!", lang: "English", pron: "good MOR-ning" },
+  { text: "Good morning, amazing learners!", lang: "English", pron: "good MOR-ning" }
+];
+
+// 160 fun facts (Grade 1-friendly, with a little explanation)
+const FUN_FACTS = [
+  "octopuses have three hearts, and they help pump blood.",
+  "butterflies taste with their feet, so they can pick good plants.",
+  "elephants can’t jump, because their bodies are very heavy.",
+  "a group of cats is called a clowder, which means many cats together.",
+  "bees do a waggle dance, to show other bees where flowers are.",
+  "dolphins sleep with one eye open, so they can stay safe.",
+  "a baby kangaroo is called a joey, and it grows in a pouch.",
+  "snails can sleep a long time, especially when it is dry.",
+  "ants can carry heavy things, because they are strong and work together.",
+  "owls can turn their heads far around, to look for food.",
+  "sharks lived on Earth before dinosaurs, which is super long ago.",
+  "bananas are berries, because of how they grow.",
+  "strawberries are not berries, even though they look like them.",
+  "the moon has no air, so sounds cannot travel there.",
+  "rainbows happen when sunlight shines through tiny water drops.",
+  "clouds are made of tiny drops or ice crystals, floating high up.",
+  "some frogs can freeze in winter, and wake up in spring.",
+  "penguins can’t fly, but they swim like they are flying underwater.",
+  "a group of lions is called a pride, and they live like a family.",
+  "a group of fish is called a school, and swimming together helps them stay safe.",
+  "spiders are not insects, because spiders have eight legs.",
+  "insects have six legs, like ants, bees, and butterflies.",
+  "worms breathe through their skin, instead of using lungs.",
+  "giraffes have long tongues, to reach leaves high in trees.",
+  "hummingbirds flap super fast, so they can hover in the air.",
+  "starfish don’t have a brain like ours, but they still move and eat.",
+  "koalas sleep many hours, to save energy for digesting leaves.",
+  "bats are mammals that can truly fly, using wings made of skin.",
+  "polar bears have black skin, which helps soak up warmth from the sun.",
+  "plants make oxygen, and we breathe oxygen every day.",
+  "the Earth spins, and that makes day and night.",
+  "the Earth goes around the sun, and that makes a year.",
+  "birds have light, hollow bones, which helps them fly.",
+  "some seeds float on wind, so they can travel and grow far away.",
+  "volcano lava can cool into rock, and that can make new land.",
+  "some animals hibernate, which means they sleep through cold months.",
+  "caterpillars change into butterflies, inside a chrysalis.",
+  "penguins have knees, but they are hidden under feathers.",
+  "camels store fat in their humps, which helps them when food is scarce.",
+  "ice floats because it is lighter than liquid water.",
+  "snowflakes can look different, because each one forms in its own way.",
+  "your heart pumps blood, carrying oxygen around your body.",
+  "frogs start as tadpoles, and tadpoles live in water.",
+  "some bugs walk on water, because the surface acts a bit like stretchy skin.",
+  "owls fly quietly, because their feathers are soft and special.",
+  "dogs sweat through their paw pads, so paws help cool them.",
+  "cats use whiskers to feel space, like tiny sensors.",
+  "a baby bear is called a cub, and it stays close to its mom.",
+  "a baby horse is called a foal, and it learns to stand quickly.",
+  "a baby goat is called a kid, and it loves to climb.",
+  "a baby chicken is called a chick, and it starts fluffy.",
+  "a baby cow is called a calf, and it drinks milk at first.",
+  "a baby deer is called a fawn, and spots help it hide.",
+  "the sun is a star, and it gives Earth light and heat.",
+  "stars look tiny, because they are very far away.",
+  "Jupiter is the biggest planet, and it is a giant ball of gas.",
+  "Saturn has rings made of ice and rock pieces.",
+  "the moon reflects sunlight, so it looks bright at night.",
+  "lightning is electricity in the sky, like a huge spark.",
+  "thunder is the sound lightning makes, because air moves fast.",
+  "wind is moving air, and it can push clouds and leaves.",
+  "fog is a cloud on the ground, made of tiny water drops.",
+  "dew is water on grass in the morning, when air cools down.",
+  "cactus plants store water, so they can live in dry places.",
+  "beavers build dams, to make ponds where they feel safe.",
+  "cheetahs are the fastest land animals, built for speed.",
+  "chameleons can change color, to communicate and sometimes to blend in.",
+  "whales are mammals, so they breathe air and have babies.",
+  "dolphins are mammals too, and they use sounds to “talk.”",
+  "earthworms help soil by making tunnels that let air in.",
+  "the ocean covers most of Earth, more than land does.",
+  "deserts get very little rain, but they can be hot or cold.",
+  "magnets pull some metals, like iron, toward them.",
+  "leaves change color in fall, when trees get ready for winter.",
+  "some animals see well at night, using tiny bits of light.",
+  "birds lay eggs, and eggs protect babies while they grow.",
+  "trees give shade, and shade helps keep things cooler.",
+  "sound travels faster in water, because water is packed closer than air.",
+  "the moon helps make tides, so oceans rise and fall.",
+  "bees pollinate flowers, which helps plants make fruit.",
+  "ladybugs eat tiny pests, helping gardens stay healthy.",
+  "rivers shape land over time, by moving water and small rocks.",
+  "some rocks come from lava that cools and becomes hard.",
+  "some rocks form in layers, pressed together for a long time.",
+  "the sky looks blue because sunlight spreads in the air.",
+  "bamboo can grow fast, sometimes very quickly in warm weather.",
+  "auroras are colorful sky lights, caused by energy from the sun.",
+  "water can be solid, liquid, or gas, depending on temperature.",
+  "popcorn pops because water inside turns to steam and bursts the kernel.",
+  "otters hold hands while floating, so they don’t drift apart.",
+  "sea otters use rocks as tools, to open shells.",
+  "flamingos are pink because of the food they eat.",
+  "a blue whale is huge, and its heart is very big too.",
+  "your brain helps you learn, remember, and make choices.",
+  "your bones hold you up, like a strong frame inside you.",
+  "your lungs bring in air, so your body gets oxygen.",
+  "your eyes blink to keep them clean and wet.",
+  "your ears help you hear, and they also help with balance.",
+  "a squirrel’s tail helps it balance, like a fluffy steering wheel.",
+  "rabbits’ teeth keep growing, so chewing helps keep them short.",
+  "beavers’ teeth keep growing too, so they can gnaw wood.",
+  "sloths move slowly to save energy and stay hidden.",
+  "pandas eat lots of bamboo, and they spend a long time chewing.",
+  "hippos can hold their breath underwater for several minutes.",
+  "camels have long eyelashes to help keep sand out.",
+  "giraffe spots are unique, like a pattern only that giraffe has.",
+  "zebra stripes are unique too, like nature fingerprints.",
+  "geese fly in a V shape, which helps the group fly easier.",
+  "a group of dolphins is called a pod, and they swim together.",
+  "a group of wolves is called a pack, and they work as a team.",
+  "a group of birds is called a flock, and they travel together.",
+  "a hermit crab uses an empty shell as a portable home.",
+  "coral reefs are built by tiny animals, making homes for many fish.",
+  "some crabs walk sideways, because of how their legs bend.",
+  "some lizards can regrow their tails if they drop them to escape.",
+  "porcupines have quills, which help protect them from danger.",
+  "skunks have stripes to warn others to stay back.",
+  "fireflies glow because their bodies make light.",
+  "dragonflies have huge eyes, so they can see very well.",
+  "a praying mantis can look like a leaf, which helps it hide.",
+  "stick bugs look like twigs, so animals may not notice them.",
+  "turtles have shells that protect them, like armor.",
+  "a turtle’s shell is part of its body, so it cannot leave it behind.",
+  "dolphins breathe through a blowhole on top of their head.",
+  "some whales sing, and their songs can travel far in water.",
+  "a baby whale is called a calf, and it drinks milk from its mom.",
+  "frogs use sticky tongues to catch insects quickly.",
+  "toads often have bumpy skin, and many live on land.",
+  "salamanders are amphibians that like wet places.",
+  "penguins stay warm with feathers and fat, like a winter coat.",
+  "an arctic fox can change color with seasons to blend in.",
+  "some butterflies drink from puddles to get minerals.",
+  "a seed needs water, warmth, and time to sprout.",
+  "roots drink water and hold the plant in the ground.",
+  "leaves catch sunlight so plants can make their own food.",
+  "some trees drop leaves to save energy in winter.",
+  "evergreen trees keep needles, so they stay green all year.",
+  "pinecones protect seeds until it is time to spread them.",
+  "mushrooms are fungi, and they are not plants.",
+  "sponges are animals that live in the ocean.",
+  "a pufferfish puffs up to look bigger and stay safe.",
+  "shark teeth can grow back, so new teeth replace old ones.",
+  "a starfish can regrow an arm if it loses one.",
+  "some birds migrate, which means they travel to warmer places.",
+  "penguins take turns caring for eggs, so parents can rest and eat.",
+  "ants use scent trails like invisible paths to find food.",
+  "bees live in hives, and different bees have different jobs.",
+  "clouds change shape because wind moves them around.",
+  "sand is tiny pieces of rock, worn down over a long time.",
+  "bubbles are air inside soapy water, and they pop easily.",
+  "bread rises because yeast makes tiny air bubbles in dough.",
+  "maple syrup comes from sap, which is like tree “juice.”",
+  "carrots grow underground, and their green tops grow above ground.",
+  "apples start as blossoms, and then the fruit grows.",
+  "corn grows on tall stalks, and each cob has many kernels.",
+  "snow can squeak when it is very cold, because crystals rub together.",
+  "water can wear down rock, like a slow carving tool."
+];
+
+// 160 motivational messages (Grade 1-clear, meaningful)
+const MOTIVATION = [
+  "You can try again if it feels hard.",
+  "It’s okay to make mistakes while learning.",
+  "Take a deep breath and start.",
+  "You can ask for help when you need it.",
+  "You can say, “Can you help me, please?”",
+  "Use kind words today.",
+  "Use gentle hands today.",
+  "You can be a good friend today.",
+  "You can include someone who is alone.",
+  "You can take turns and share.",
+  "Listen with your whole body.",
+  "Raise your hand and wait.",
+  "You can keep your body safe.",
+  "Keep your hands to yourself.",
+  "Walk inside the classroom.",
+  "Use a calm voice inside.",
+  "Try one step at a time.",
+  "Start with the first step.",
+  "Keep going even when it’s tricky.",
+  "Be proud of your effort.",
+  "Be proud of your kindness.",
+  "Be proud of your learning.",
+  "Try your best today.",
+  "Your best is enough today.",
+  "You can learn something new today.",
+  "You can be brave and try.",
+  "You can be a helper.",
+  "You can help our class feel safe.",
+  "You can help our class feel kind.",
+  "You can make someone smile.",
+  "Use “please” and “thank you.”",
+  "You can say sorry and try again.",
+  "You can fix a mistake.",
+  "Try a different way.",
+  "If it doesn’t work, try again.",
+  "Take a short break and return.",
+  "Calm down with slow breaths.",
+  "Breathe in… and breathe out…",
+  "Count to five to calm your body.",
+  "Tell a grown-up how you feel.",
+  "Use words for feelings.",
+  "You can say, “I feel upset.”",
+  "You can say, “I feel worried.”",
+  "You can say, “I feel excited.”",
+  "You can say, “I need space.”",
+  "Ask, “Can I have a turn?”",
+  "Ask, “Can we play together?”",
+  "Share the materials.",
+  "Clean up your spot.",
+  "Take care of your supplies.",
+  "Try careful work.",
+  "Slow down and do it neatly.",
+  "Focus for a little bit.",
+  "Try again after a mistake.",
+  "Mistakes help your brain grow.",
+  "You are a learner.",
+  "You belong in our class.",
+  "You are important here.",
+  "Be kind to yourself.",
+  "Be patient with yourself.",
+  "Be patient with others.",
+  "Wait your turn.",
+  "You can be fair.",
+  "Be a good sport.",
+  "Cheer for others.",
+  "Clap for someone’s success.",
+  "Notice the good in others.",
+  "Notice something you did well.",
+  "Try a new strategy.",
+  "Ask a question when you wonder.",
+  "Share your idea.",
+  "Your idea matters.",
+  "Keep trying—don’t give up.",
+  "You can do hard things with practice.",
+  "Do one job, then the next.",
+  "Finish one thing at a time.",
+  "Start fresh right now.",
+  "Choose kindness.",
+  "Choose respect.",
+  "Choose to help.",
+  "Choose to listen.",
+  "Use listening ears.",
+  "Use looking eyes.",
+  "Use a calm body.",
+  "Keep your feet on the floor.",
+  "Keep your chair safe.",
+  "Keep your hands busy with your work.",
+  "Try your best in reading.",
+  "Try your best in writing.",
+  "Try your best in math.",
+  "Try your best at play time too.",
+  "Practice taking turns.",
+  "Practice sharing.",
+  "Practice being brave.",
+  "Practice being kind.",
+  "You can be a problem-solver.",
+  "Try: stop, think, choose.",
